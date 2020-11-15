@@ -4,7 +4,62 @@
 
 ## Denormalisation 1
 
-Requêtes mongodb :
+<details>
+
+<summary>En premier, un Map Reduce qui nous permet de faire les requetes 4 et 8 :</summary>
+
+```text
+mapCustomers = function () {
+  let arr = this.sales.map((x) => x["AMOUNT"]);
+  let avg = 0;
+  for (let i = 0; i < arr.length; i++) {
+    avg += arr[i];
+  }
+  var values = { avg_amount: avg, Customer_ID: this.ID, age: this.age };
+  emit(this.GEOID, values);
+};
+
+mapDemog = function () {
+  var values = { INCOME_K: this.INCOME_K };
+  emit(this.GEOID, values);
+};
+
+reduce = function (k, values) {
+  var result = {},
+    clientFields = {
+      avg_amount: "",
+      Customer_ID: "",
+      age: "",
+    };
+  values.forEach(function (value) {
+    var field;
+    if ("Customer_ID" in value) {
+      if (!("customers" in result)) {
+        result.customers = [];
+      }
+      result.customers.push(value);
+    } else if ("customers" in value) {
+      if (!("customers" in result)) {
+        result.customers = [];
+      }
+      result.customers.push.apply(result.customers, value.customers);
+    }
+    for (field in value) {
+      if (value.hasOwnProperty(field) && !(field in clientFields)) {
+        result[field] = value[field];
+      }
+    }
+  });
+  return result;
+};
+
+db.Customers.mapReduce(mapCustomers, reduce, { out: { reduce: "results" } });
+db.Demog.mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
+```
+
+</details>
+
+Les requêtes mongodb :
 
 1. L’occupation des 50 clients qui ont réalisés le plus de sales (client):
 

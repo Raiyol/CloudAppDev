@@ -1,0 +1,43 @@
+[
+  {
+    "_id": "5fac02b36547b97201039ae0",
+    "OCCUPATION": "Farming-fishing",
+    "number_transactions": 20
+  },
+  {
+    "_id": "5fac02c56547b9720104e2de",
+    "OCCUPATION": "Handlers-cleaners",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac29ede79b28223c209822",
+    "OCCUPATION": "Machine-op-inspct",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac02b36547b97201039d82",
+    "OCCUPATION": "Machine-op-inspct",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac02ca6547b972010548e2",
+    "OCCUPATION": "Handlers-cleaners",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac02d06547b9720105ba88",
+    "OCCUPATION": "Machine-op-inspct",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac02de6547b9720106b184",
+    "OCCUPATION": "Farming-fishing",
+    "number_transactions": 19
+  },
+  {
+    "_id": "5fac02b46547b9720103a6f5",
+    "OCCUPATION": "Machine-op-inspct",
+    "number_transactions": 19
+  },
+
+Message Dev App Cloud

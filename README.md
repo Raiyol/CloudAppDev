@@ -2,6 +2,10 @@
 
 > Rendu final cours Developement d'Application Cloud
 
+### Problèmes :
+- requete 2,3,5,6 c'est quoi la table mailings ? Normalement une seul table sales_in_mailings
+- Ou sont les requetes map reduce
+- requete 5 solution 2 ne marche pas
 ## Denormalisation 1
 
 <details>
@@ -313,7 +317,7 @@ db.demog.mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
    ```text
     db.mailings.aggregate([
     {$match:{"RESPONSE":"True"}},
-    {$group:{_id:"CUSTOMERS.SEX","sum":{$sum:1}}}
+    {$group:{_id:"$CUSTOMERS.SEX","sum":{$sum:1}}}
     ]);
    ```
 

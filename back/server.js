@@ -18,7 +18,7 @@ app.get("/",(req,res) => {
 })
 
 //connect to the database
-connectionString = process.env.mongodb189
+connectionString = process.env.mongodb186
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database')

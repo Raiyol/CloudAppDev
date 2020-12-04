@@ -317,7 +317,7 @@ db.demog.mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
    ```text
     db.mailings.aggregate([
     {$match:{"RESPONSE":"True"}},
-    {$group:{_id:"CUSTOMERS.SEX","sum":{$sum:1}}}
+    {$group:{_id:"$CUSTOMERS.SEX","sum":{$sum:1}}}
     ]);
    ```
 

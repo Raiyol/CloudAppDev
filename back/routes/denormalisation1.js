@@ -5,6 +5,8 @@ const requetes_sol1 = require("../requetes/solution1");
 
 
 //set response for each endpoints
+//router.get('',function())
+
 router.get('/query1', function(req, res) {
     const db = req.app.locals.db;
     db.collection('Customers').aggregate(requetes_sol1.r1).toArray()
@@ -34,7 +36,7 @@ router.get('/query3', function(req, res) {
 
 router.get('/query4', function(req, res) {
     const db = req.app.locals.db;
-    db.collection('Customers').aggregate(requetes_sol1.r4).toArray()
+    db.collection('results').aggregate(requetes_sol1.r4).toArray()
       .then(results => {
       res.send(results)
       })
@@ -70,7 +72,7 @@ router.get('/query7', function(req, res) {
 
 router.get('/query8', function(req, res) {
     const db = req.app.locals.db;
-    db.collection('Customers').aggregate(requetes_sol1.r8).toArray()
+    db.collection('results').aggregate(requetes_sol1.r8).toArray()
       .then(results => {
       res.send(results)
       })

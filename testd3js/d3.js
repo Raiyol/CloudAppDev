@@ -1,12 +1,4 @@
-// var svg = d3.select("#svg1").append("svg");
-// svg.append("rect")
-//     .attr("x",20)
-//     .attr("y",20)
-//     .attr("width",200)
-//     .attr("height",50);
-
-// bins = [[17.3,17.3],[17.9,17.8,17.7],[18.1,18.1,18],[18.7,18.8]]
-
+// Histogramme
 data = [5.1, 4.9, 8.6, 6.2, 5.1, 7.1, 6.7, 6.1, 5, 5, 5.2, 7.9, 11.1, 5.9, 5.5, 5.6, 6.5, 7.7, 5.7, 6.7];
 
 // console.log(d3.min(data));
@@ -71,3 +63,76 @@ svg.append("g")
 svg.append("g")
       .call(yAxis);
 
+// Scatter plot
+
+chart = async () =>{
+    await fetch
+}
+
+let str = "2007-5-17 12:00:00";
+let temp = str.split(' ')[0].split("-");
+
+data = [
+    {date : new Date(2007, 05, 10), value : 2},
+    {date : new Date(2007, 05, 20), value : 5},
+    {date : new Date(2007, 06, 1), value : 1},
+]
+
+yAxis = g => g
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y))
+    .call(g => g.select(".domain").remove())
+    .call(g => g.select(".tick:last-of-type text").clone()
+        .attr("x", 3)
+        .attr("text-anchor", "start")
+        .attr("font-weight", "bold")
+        .text(data.y))
+
+xAxis = g => g
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
+
+y = d3.scaleLinear()
+    .domain([new Date(2000, 0, 1,  5), d3.max(data, d => d.value)]).nice()
+    .range([height - margin.bottom, margin.top])
+
+x = d3.scaleUtc()
+    .domain([d3.extent(data, d => d.date)])
+    .range([margin.left, width - margin.right])
+
+line = d3.line()
+    .defined(d => !isNaN(d.value))
+    .x(d => x(d.date))
+    .y(d => y(d.value))
+
+const svg2 = d3.select("#svg2").append("svg")
+.attr("viewBox", [0, 0, width, height]);
+
+svg2.append("g")
+.call(xAxis);
+
+svg2.append("g")
+.call(yAxis);
+
+svg2.append("path")
+.datum(data)
+.attr("fill", "none")
+.attr("stroke", "steelblue")
+.attr("stroke-width", 1.5)
+.attr("stroke-linejoin", "round")
+.attr("stroke-linecap", "round")
+.attr("d", line);
+
+async function FetchJSON(url) {
+    const response = await fetch(url);
+    const json_resp = await response.json();
+    if(response.status != 200){
+        console.log(response);
+    }
+    else{
+        console.log(json_resp);
+        return json_resp;
+    }
+}
+
+FetchJSON('http://localhost:3000/');

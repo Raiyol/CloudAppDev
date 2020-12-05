@@ -9,21 +9,20 @@ async function FetchJSON(url) {
     }
 }
 
-async function D1Q4(url, html_id){
+async function D1Q6(url, html_id){
     data = await FetchJSON(url);
     console.log(data);
 
     data.map(x => {
-        if(x.average_age == null) x.average_age = 0;
-        if(x.average_income == null) x.average_income = 0;
-        x.average_income /= 100;
+        if(x._id == "True") x._id = "Positive";
+        if(x._id == "False") x._id = "Negative";
         return x;
     })
     data.sort((a,b) => a._id - b._id);
         
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 20, left: 50},
-        width = 4000 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
@@ -38,7 +37,7 @@ async function D1Q4(url, html_id){
     // Parse the Data
 
     // List of subgroups = header of the csv files = soil condition here
-    var subgroups = ["average_age", "average_income"]
+    var subgroups = ["average_education"];
 
     // List of groups = species here = value of the first column called group -> I show them on the X axis
     var groups = d3.map(data, function(d){return(d._id)}).keys()
@@ -54,7 +53,7 @@ async function D1Q4(url, html_id){
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([0, 90])
+        .domain([0, 10])
         .range([ height, 0 ]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -67,8 +66,8 @@ async function D1Q4(url, html_id){
 
     // color palette = one color per subgroup
     var color = d3.scaleOrdinal()
-        .domain(subgroups)
-        .range(['#e41a1c','#377eb8','#4daf4a'])
+        .domain(groups)
+        .range(['#e41a1c','#377eb8'])
 
     // Show the bars
     svg.append("g")
@@ -89,6 +88,4 @@ async function D1Q4(url, html_id){
 
 }
 
-D1Q4('http://localhost:3000/denormalisation1/query4', 'd1q4');
-
-
+D1Q6('http://localhost:3000/denormalisation1/query6', 'd1q6');

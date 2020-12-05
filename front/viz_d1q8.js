@@ -8,8 +8,7 @@ async function FetchJSON(url) {
         return json_resp;
     }
 }
-
-async function D1Q4(url, html_id){
+async function D1Q8(url, html_id){
     data = await FetchJSON(url);
     console.log(data);
 
@@ -38,7 +37,7 @@ async function D1Q4(url, html_id){
     // Parse the Data
 
     // List of subgroups = header of the csv files = soil condition here
-    var subgroups = ["average_age", "average_income"]
+    var subgroups = ["average_sales_amount", "average_income"]
 
     // List of groups = species here = value of the first column called group -> I show them on the X axis
     var groups = d3.map(data, function(d){return(d._id)}).keys()
@@ -54,7 +53,7 @@ async function D1Q4(url, html_id){
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([0, 90])
+        .domain([0, 200])
         .range([ height, 0 ]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -89,6 +88,4 @@ async function D1Q4(url, html_id){
 
 }
 
-D1Q4('http://localhost:3000/denormalisation1/query4', 'd1q4');
-
-
+D1Q8('http://localhost:3000/denormalisation1/query8', 'd1q8');

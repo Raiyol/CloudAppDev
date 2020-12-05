@@ -282,4 +282,23 @@ router.get('/mapreduce',async function(req, res) {
 
   
 });
+router.get('/administrateur',async function(req, res) {
+  const db = req.app.locals.db;
+  try {
+
+    
+    const result = await db.command({
+      dbStats: 1,
+    });
+    //console.log(result)
+    res.send(JSON.stringify(result));
+  } catch (error) {
+    console.log(error)
+    res.send("status not available")
+  }
+
+  
+});
+
+
 module.exports = router;

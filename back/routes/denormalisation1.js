@@ -235,9 +235,8 @@ router.get('/administrateur',async function(req, res) {
     const result = await db.command({
       dbStats: 1,
     });
-    console.log(result)
-    res.send("salut")
-    //res.send(JSON.stringify({"map reduce executed in : ":end}));
+    //console.log(result)
+    res.send(JSON.stringify(result));
   } catch (error) {
     console.log(error)
     res.send("status not available")

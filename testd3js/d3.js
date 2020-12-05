@@ -1,128 +1,3 @@
-// Histogramme
-data = [5.1, 4.9, 8.6, 6.2, 5.1, 7.1, 6.7, 6.1, 5, 5, 5.2, 7.9, 11.1, 5.9, 5.5, 5.6, 6.5, 7.7, 5.7, 6.7];
-
-// console.log(d3.min(data));
-
-bins = d3.histogram().thresholds(5)(data);
-
-height = 200;
-width = 500;
-
-const svg = d3.select("#svg1").append("svg").attr("viewBox", [0, 0, width, height]);
-
-margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 40
-}
-
-x = d3.scaleLinear()
-      .domain([bins[0].x0, bins[bins.length - 1].x1])
-      .range([margin.left, width - margin.right])
-      
-y = d3.scaleLinear()
-    .domain([0, d3.max(bins, d => d.length)]).nice()
-    .range([height - margin.bottom, margin.top])
-
-xAxis = g => g
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(width / 80 ).tickSizeOuter(0))
-    .call(g => g.append("text")
-        .attr("x", width - margin.right)
-        .attr("y", -4)
-        .attr("fill", "currentColor")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "end")
-        .text(data.x))
-
-yAxis = g => g
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).ticks(height / 40))
-    .call(g => g.select(".domain").remove())
-    .call(g => g.select(".tick:last-of-type text").clone()
-        .attr("x", 4)
-        .attr("text-anchor", "start")
-        .attr("font-weight", "bold")
-        .text(data.y))
-
-// chart
-svg.append("g")
-      .attr("fill", "steelblue")
-    .selectAll("rect")
-    .data(bins)
-    .join("rect")
-      .attr("x", d => x(d.x0) + 1)
-      .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-      .attr("y", d => y(d.length))
-      .attr("height", d => y(0) - y(d.length));
-
-svg.append("g")
-      .call(xAxis);
-  
-svg.append("g")
-      .call(yAxis);
-
-// Scatter plot
-
-chart = async () =>{
-    await fetch
-}
-
-let str = "2007-5-17 12:00:00";
-let temp = str.split(' ')[0].split("-");
-
-data = [
-    {date : new Date(2007, 05, 10), value : 2},
-    {date : new Date(2007, 05, 20), value : 5},
-    {date : new Date(2007, 06, 1), value : 1},
-]
-
-yAxis = g => g
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y))
-    .call(g => g.select(".domain").remove())
-    .call(g => g.select(".tick:last-of-type text").clone()
-        .attr("x", 3)
-        .attr("text-anchor", "start")
-        .attr("font-weight", "bold")
-        .text(data.y))
-
-xAxis = g => g
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
-
-y = d3.scaleLinear()
-    .domain([new Date(2000, 0, 1,  5), d3.max(data, d => d.value)]).nice()
-    .range([height - margin.bottom, margin.top])
-
-x = d3.scaleUtc()
-    .domain([d3.extent(data, d => d.date)])
-    .range([margin.left, width - margin.right])
-
-line = d3.line()
-    .defined(d => !isNaN(d.value))
-    .x(d => x(d.date))
-    .y(d => y(d.value))
-
-const svg2 = d3.select("#svg2").append("svg")
-.attr("viewBox", [0, 0, width, height]);
-
-svg2.append("g")
-.call(xAxis);
-
-svg2.append("g")
-.call(yAxis);
-
-svg2.append("path")
-.datum(data)
-.attr("fill", "none")
-.attr("stroke", "steelblue")
-.attr("stroke-width", 1.5)
-.attr("stroke-linejoin", "round")
-.attr("stroke-linecap", "round")
-.attr("d", line);
-
 async function FetchJSON(url) {
     const response = await fetch(url);
     const json_resp = await response.json();
@@ -130,9 +5,77 @@ async function FetchJSON(url) {
         console.log(response);
     }
     else{
-        console.log(json_resp);
         return json_resp;
     }
 }
 
-FetchJSON('http://localhost:3000/');
+async function D1Q4(url){
+    data = await FetchJSON(url);
+    console.log(data);
+    data.map(x => {
+        if(x.average_age == null) x.average_age = 0;
+        if(x.average_income == null) x.average_income = 0;
+        return x;
+    })
+    data.sort((a,b) => a._id - b._id);
+
+
+    var margin = {top: 30, right: 30, bottom: 70, left: 60},
+    width = 4000 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#d1q4")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    // X axis
+    var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(data.map(function(d) { return d._id; }))
+    .padding(0.2);
+    svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+    .domain([0, 4000])
+    .range([ height, 0]);
+    svg.append("g")
+    .call(d3.axisLeft(y));
+
+    // Bars
+    svg.selectAll("mybar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function(d) { return x(d._id); })
+    .attr("y", function(d) { return y(d.average_income); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.average_income); })
+    .attr("fill", "#69b3a2")  
+}
+
+
+D1Q4('http://localhost:3000/denormalisation1/query4');
+
+
+d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_stacked.csv", function(data) {
+
+    // List of subgroups = header of the csv files = soil condition here
+    var subgroups = data.columns.slice(1)
+  
+    // List of groups = species here = value of the first column called group -> I show them on the X axis
+    var groups = d3.map(data, function(d){return(d.group)}).keys()
+
+    console.log(subgroups);
+    console.log(groups);
+})

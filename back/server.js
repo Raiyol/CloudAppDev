@@ -12,18 +12,6 @@ app.use(cors());
 app.use('/denormalisation1',denormalisation1)
 app.use('/denormalisation2',denormalisation2)
 
-/*
-const list = [1, 2, 3, 4, 5] //...an array filled with values
-
-const getData = async () => {
-  return Promise.all(list.map(item => item+1))
-}
-
-getData().then(data => {
-  console.log(data)
-})*/
-
-
 
 //routes
 app.get("/",(req,res) => {

@@ -23,8 +23,7 @@ requetes ={
       ],
 
       //3. Information sur toutes les transactions qu'a fait un client avec ses informations personnelles (client)
-      r3 :[
-        { _id: 0 }
+      r3 :[{ $match: { _id: 0 } }
       ],
 
       //4. Age et revenu moyen des clients qui habitent dans chaque quartier (client + demog)
@@ -37,7 +36,7 @@ requetes ={
       //5. Nombre de clients qui ont répondu positivement au mail groupé par leur sexe (client)
       r5 :[
         {$match:{"RESPONSE":"True"}},
-        {$group:{_id:"CUSTOMERS.SEX","sum":{$sum:1}}}
+        {$group:{_id:"$CUSTOMERS.SEX","sum":{$sum:1}}}
       ],
 
       //6. Le niveau d’éducation moyen des personnes qui ont reçu le mail groupé par leur réponse positive ou négative (client)

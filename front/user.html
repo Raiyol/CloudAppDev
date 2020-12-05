@@ -47,28 +47,141 @@
 
 <div class="container" style="margin-top:30px">
   <div class="row"> 
-      <div class="col-sm-6">
-       <div id="my-chart">
-          <h2>About Me</h2>
-          <script type="text/javascript" src="user_query1.js"></script>
+      <div class="col-sm-5">
+        <h2>Dénorm1 query 1</h2>         
+       <div id="my-chart11" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+        <pre>
+          <code id="json11">   
+          </code>
+        </pre>
+          <script>
+          d3.json('http://localhost:3000/denormalisation1/query1', function (error,data){
+            console.log(data);
+            document.getElementById('json11').innerHTML= JSON.stringify(data, null, 4);
+            //console.log(JSON.stringify(data, null, 4));
+          }
+          );        
+        </script>
        </div>
-       <div id="my-chart3">
-        <h2>About Me</h2>
-        <script type="text/javascript" src="chart.js"></script>
-     </div>
       </div>
-      <div class="col-sm-6">
-        <div id="my-chart2">
-          <h2>About Me</h2>
-          <script type="text/javascript" src="chart2.js"></script>
+      <div class="col-sm-5">
+        <h2>Dénorm1 query 2</h2>         
+        <div id="my-chart12" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json12">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation1/query2', function (error,data2){
+             
+             document.getElementById('json12').innerHTML= JSON.stringify(data2);
+           }
+           );        
+         </script>
+        </div> 
+      </div>
+
+      <div class="col-sm-5">
+        <h2>Dénorm1 query 3</h2>         
+        <div id="my-chart13" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json13">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation1/query3', function (error,data3){
+             
+             document.getElementById('json13').innerHTML= JSON.stringify(data3);
+           }
+           );        
+         </script>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <h2>Dénorm1 query 4</h2>         
+        <div id="my-chart14" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json14">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation1/query4', function (error,data4){
+             
+             document.getElementById('json14').innerHTML= JSON.stringify(data4);
+           }
+           );        
+         </script>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <h2>Dénorm2 query 1</h2>         
+        <div id="my-chart21" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json21">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation2/query1', function (error,data5){
+             
+             document.getElementById('json21').innerHTML= JSON.stringify(data5);
+           }
+           );        
+         </script>
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <h2>Dénorm2 query 2</h2>         
+        <div id="my-chart22" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json22">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation2/query2', function (error,data6){
+             
+             document.getElementById('json22').innerHTML= JSON.stringify(data6);
+           }
+           );        
+         </script>
         </div>
       </div>
          
+      <div class="col-sm-5">
+        <h2>Dénorm2 query 3</h2>         
+        <div id="my-chart23" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json23">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation2/query3', function (error,data7){
+             
+             document.getElementById('json23').innerHTML= JSON.stringify(data7);
+           }
+           );        
+         </script>
+        </div>
+      </div>
+
+      
+      <div class="col-sm-5">
+        <h2>Dénorm2 query 4</h2>         
+        <div id="my-chart24" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+         <pre>
+           <code id="json24">   
+           </code>
+         </pre>
+           <script>
+           d3.json('http://localhost:3000/denormalisation2/query4', function (error,data8){
+             
+             document.getElementById('json24').innerHTML= JSON.stringify(data8);
+           }
+           );        
+         </script>
+        </div>
+      </div>
   </div>
 </div>
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <p>Footer</p>
-</div>
-
 </body>
 </html>

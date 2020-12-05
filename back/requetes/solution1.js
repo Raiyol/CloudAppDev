@@ -22,9 +22,11 @@ requetes ={
       ],
 
       //4. Age et revenu moyen des clients qui habitent dans chaque quartier (client + demog)
-      r4 :[{ $project: {
+      r4 :[
+        { $project: {
         average_age : {$avg : "$value.customers.age"},
-        average_income : "$value.INCOME_K"}}
+        average_income : "$value.INCOME_K"}
+      }
       ],
 
       //5. Nombre de clients qui ont répondu positivement au mail groupé par leur sexe (client)

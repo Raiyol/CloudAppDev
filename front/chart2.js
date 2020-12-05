@@ -1,140 +1,57 @@
-var width = document.getElementById('my-chart2').clientWidth;
-var data = [        //This is the data we want to visualize. 
-    //In reality it usually comes from a file or database.
-{x: 10,    y: 10},
-{x: 10,    y: 20},
-{x: 10,    y: 30},
-{x: 10,    y: 40},
-{x: 10,    y: 50},
-{x: 10,    y: 80},
-{x: 10,    y: 90},
-{x: 10,    y: 100},
-{x: 10,    y: 110},
-{x: 20,    y: 30},
-{x: 20,    y: 120},
-{x: 30,    y: 10},
-{x: 30,    y: 20},
-{x: 30,    y: 30},
-{x: 30,    y: 40},
-{x: 30,    y: 50},
-{x: 30,    y: 80},
-{x: 30,    y: 90},
-{x: 30,    y: 100},
-{x: 30,    y: 110},
-{x: 40,    y: 120},
-{x: 50,    y: 10},
-{x: 50,    y: 20},
-{x: 50,    y: 30},
-{x: 50,    y: 40},
-{x: 50,    y: 50},
-{x: 50,    y: 80},
-{x: 50,    y: 90},
-{x: 50,    y: 100},
-{x: 50,    y: 110},
-{x: 60,    y: 10},
-{x: 60,    y: 30},
-{x: 60,    y: 50},
-{x: 70,    y: 10},
-{x: 70,    y: 30},
-{x: 70,    y: 50},
-{x: 70,    y: 90},
-{x: 70,    y: 100},
-{x: 70,    y: 110},
-{x: 80,    y: 80},
-{x: 80,    y: 120},
-{x: 90,    y: 10},
-{x: 90,    y: 20},
-{x: 90,    y: 30},
-{x: 90,    y: 40},
-{x: 90,    y: 50},
-{x: 90,    y: 80},
-{x: 90,    y: 120},
-{x: 100,    y: 50},
-{x: 100,    y: 90},
-{x: 100,    y: 100},
-{x: 100,    y: 110},
-{x: 110,    y: 50},
-{x: 120,    y: 80},
-{x: 120,    y: 90},
-{x: 120,    y: 100},
-{x: 120,    y: 110},
-{x: 120,    y: 120},
-{x: 130,    y: 10},
-{x: 130,    y: 20},
-{x: 130,    y: 30},
-{x: 130,    y: 40},
-{x: 130,    y: 50},
-{x: 130,    y: 80},
-{x: 130,    y: 100},
-{x: 140,    y: 50},
-{x: 140,    y: 80},
-{x: 140,    y: 100},
-{x: 140,    y: 110},  
-{x: 150,    y: 50},
-{x: 150,    y: 90},
-{x: 150,    y: 120},
-{x: 170,    y: 20},
-{x: 170,    y: 30},
-{x: 170,    y: 40},
-{x: 170,    y: 80},
-{x: 170,    y: 90},  
-{x: 170,    y: 100},
-{x: 170,    y: 110},
-{x: 170,    y: 120},
-{x: 180,    y: 10},
-{x: 180,    y: 50},
-{x: 180,    y: 120},
-{x: 190,    y: 10},
-{x: 190,    y: 50},
-{x: 190,    y: 120},
-{x: 200,    y: 20},
-{x: 200,    y: 30},  
-{x: 200,    y: 40},
-{x: 210,    y: 80},
-{x: 210,    y: 90},
-{x: 210,    y: 100},
-{x: 210,    y: 110},  
-{x: 210,    y: 120},
-{x: 220,    y: 80},  
-{x: 220,    y: 120},
-{x: 230,    y: 80},  
-{x: 230,    y: 120},
-{x: 240,    y: 90},
-{x: 240,    y: 100},  
-{x: 240,    y: 110},
-{x: 270,    y: 70},
-{x: 270,    y: 80},
-{x: 270,    y: 90},
-{x: 270,    y: 100},  
-{x: 270,    y: 120}
-];
-//this allows us to collect the width of the div where the SVG will go.
-var height = width / 3.236;
-//I like to use the golden rectangle ratio if they work for my charts.
+// set the dimensions and margins of the graph
+var width = 450
+    height = 450
+    margin = 40
 
-var svg = d3.select('#my-chart2').append('svg').selectAll()  //'d3' calls the d3 library
-//'.select' selects the object (in this case the body of HTML)
-//'.append' adds SVG element to the body
-//'.selectAll()' selects all SVG elements
-.data(data)                              //'.data' gets the data from the variable 'data'
-.enter().append("circle")                  //'.enter' enters the data into the SVG 
-//the data enter as circles with '.append("circle")'
-.attr("r", 3)                            //'.attr' adds/alters atributes of SVG, 
-//such as radius ("r"), making it 3 pixels
-.attr("cx", function(d) { return d.x; }) //coordinates "cx" (circles' x coordinates)
-.attr("cy", function(d) { return d.y; }) //coordinates "cy" (circles' y coordinates)
-.style("fill", "darkblue");
-//We add our svg to the div area
+// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+var radius = Math.min(width, height) / 2 - margin
 
+// append the svg object to the div called 'my_dataviz'
+var svg = d3.select("#my_chart2")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-//We will build a basic function to handle window resizing.
-function resize() {
-    width = document.getElementById('my-chart').clientWidth;
-    height = width / 3.236;
-    d3.select('#my-chart2 svg')
-      .attr('width', width)
-      .attr('height', height);
-}
+// Create dummy data
+var data = {a: 9, b: 20, c:30, d:8, e:12}
 
-window.onresize = resize;
-//Call our resize function if the window size is changed.
+// set the color scale
+var color = d3.scaleOrdinal()
+.domain(data)
+.range(d3.schemeSet2);
+
+// Compute the position of each group on the pie:
+var pie = d3.pie()
+  .value(function(d) {return d.value; })
+var data_ready = pie(d3.entries(data))
+// Now I know that group A goes from 0 degrees to x degrees and so on.
+
+// shape helper to build arcs:
+var arcGenerator = d3.arc()
+  .innerRadius(0)
+  .outerRadius(radius)
+
+// Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+svg 
+  .selectAll('mySlices')
+  .data(data_ready)
+  .enter()
+  .append('path')
+    .attr('d', arcGenerator)
+    .attr('fill', function(d){ return(color(d.data.key)) })
+    .attr("stroke", "black")
+    .style("stroke-width", "2px")
+    .style("opacity", 0.7)
+
+// Now add the annotation. Use the centroid method to get the best coordinates
+svg
+  .selectAll('mySlices')
+  .data(data_ready)
+  .enter()
+  .append('text')
+  .text(function(d){ return "grp " + d.data.key})
+  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+  .style("text-anchor", "middle")
+  .style("font-size", 17)

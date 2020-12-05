@@ -44,6 +44,54 @@ function modify_array(arr) {
   arr.splice(maxIndex, 1)
   return arr
 }
+mapCustomers = function () {
+  let arr = this.sales.map((x) => x["AMOUNT"]);
+  let avg = 0;
+  for (let i = 0; i < arr.length; i++) {
+    avg += arr[i];
+  }
+  var values = { avg_amount: avg, Customer_ID: this.ID, age: this.age };
+  emit(this.GEOID, values);
+};
+mapDemog = function () {
+  var values = { INCOME_K: this.INCOME_K };
+  emit(this.GEOID, values);
+};
+reduce = function (k, values) {
+  var result = {},
+    clientFields = {
+      avg_amount: "",
+      Customer_ID: "",
+      age: "",
+    };
+  values.forEach(function (value) {
+    var field;
+    if ("Customer_ID" in value) {
+      if (!("customers" in result)) {
+        result.customers = [];
+      }
+      result.customers.push(value);
+    } else if ("customers" in value) {
+      if (!("customers" in result)) {
+        result.customers = [];
+      }
+      result.customers.push.apply(result.customers, value.customers);
+    }
+    for (field in value) {
+      if (value.hasOwnProperty(field) && !(field in clientFields)) {
+        result[field] = value[field];
+      }
+    }
+  });
+  return result;
+};
+async function execute_mapReduce(db){
+  var start = new Date()
+    await db.collection('Customers').mapReduce(mapCustomers, reduce, { out: { reduce: "results" } });
+    await db.collection('Demog').mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
+    var end = new Date() - start
+    return end
+}
 
 
 //set response for each endpoints
@@ -69,6 +117,8 @@ router.get('/query3/perf', async function(req, res) {
 router.get('/query4/perf', async function(req, res) {
   const db = req.app.locals.db;
   avg = await get_array("results",requetes_sol1.r4,db)
+  map_reduce = await execute_mapReduce(db)
+  avg = avg + map_reduce
   console.log(avg)
   res.send(JSON.stringify({"query4":avg}));
 });
@@ -93,6 +143,8 @@ router.get('/query7/perf', async function(req, res) {
 router.get('/query8/perf', async function(req, res) {
   const db = req.app.locals.db;
   avg = await get_array("results",requetes_sol1.r8,db)
+  map_reduce = await execute_mapReduce(db)
+  avg = avg + map_reduce
   console.log(avg)
   res.send(JSON.stringify({"query8":avg}));
 });
@@ -122,7 +174,7 @@ router.get('/query3', function(req, res) {
       })
     
 });
-router.get('/query4', function(req, res) {
+router.get('/query4',async function(req, res) {
     const db = req.app.locals.db;
     db.collection('results').aggregate(requetes_sol1.r4).toArray()
       .then(results => {
@@ -163,6 +215,36 @@ router.get('/query8', function(req, res) {
     
 });
 
+router.get('/mapreduce',async function(req, res) {
+  const db = req.app.locals.db;
+  try {
+    end = await execute_mapReduce(db);
+    res.send(JSON.stringify({"map reduce executed in : ":end}));
+  } catch (error) {
+    console.log(error)
+    res.send("Map reduce not executed")
+  }
+
+  
+});
+router.get('/administrateur',async function(req, res) {
+  const db = req.app.locals.db;
+  try {
+
+    
+    const result = await db.command({
+      dbStats: 1,
+    });
+    console.log(result)
+    res.send("salut")
+    //res.send(JSON.stringify({"map reduce executed in : ":end}));
+  } catch (error) {
+    console.log(error)
+    res.send("status not available")
+  }
+
+  
+});
 
 
 module.exports = router;

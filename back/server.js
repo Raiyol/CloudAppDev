@@ -27,7 +27,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     app.locals.db = db;
     const db2 = client.db('database2')
     app.locals.db2 = db2;
-    
+
     //start listening to the server
     port = 3000
     app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -35,5 +35,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
   })
   .catch(error => console.error(error))
 
+  // denormalisation 1
+  // resultat = [1478.75,522.625,282.25,280.75,487.5,724.25,272.125,271]
+  // denormalisation 2
+  // resultat = [1242.625,292.75,90.75,null,289.375,676,1230.125,null]
 
 

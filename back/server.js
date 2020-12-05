@@ -8,7 +8,7 @@ require("dotenv/config")
 const denormalisation1 = require("./routes/denormalisation1");
 const denormalisation2 = require("./routes/denormalisation2");
 
-app.use(cors);
+app.use(cors());
 app.use('/denormalisation1',denormalisation1)
 app.use('/denormalisation2',denormalisation2)
 

@@ -122,3 +122,17 @@ svg2.append("path")
 .attr("stroke-linejoin", "round")
 .attr("stroke-linecap", "round")
 .attr("d", line);
+
+async function FetchJSON(url) {
+    const response = await fetch(url);
+    const json_resp = await response.json();
+    if(response.status != 200){
+        console.log(response);
+    }
+    else{
+        console.log(json_resp);
+        return json_resp;
+    }
+}
+
+FetchJSON('http://localhost:3000/');

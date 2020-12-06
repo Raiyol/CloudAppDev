@@ -56,7 +56,7 @@
         </pre>
           <script>
           d3.json('http://localhost:3000/denormalisation1/query1', function (error,data){
-            console.log(data);
+            //console.log(data);
             document.getElementById('json11').innerHTML= JSON.stringify(data, null, 4);
             //console.log(JSON.stringify(data, null, 4));
           }
@@ -67,7 +67,7 @@
       <div class="col-sm-5">
         <h2>Dénorm1 query 2</h2>  
               <button id="query2">reponse positive</button> 
-              <button id="query3">reponse negative</button>
+              <button id="query2_2">reponse negative</button>
             <div id="my-chart12" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
               <pre>
                 <code id="json12">   
@@ -77,15 +77,15 @@
           document.getElementById("query2").addEventListener("click", function(){
            //console.log('http://localhost:3000/denormalisation1/query2');
            d3.json('http://localhost:3000/denormalisation1/query2', function (error,data2){            
-           document.getElementById('json12').innerHTML= JSON.stringify(data2);
+           document.getElementById('json12').innerHTML= JSON.stringify(data2, null, 4);
           }
           )            
         }
         )
-        document.getElementById("query3").addEventListener("click", function(){
+        document.getElementById("query2_2").addEventListener("click", function(){
            //console.log('http://localhost:3000/denormalisation1/query2');
-           d3.json('http://localhost:3000/denormalisation1/query3', function (error,data2){            
-           document.getElementById('json12').innerHTML= JSON.stringify(data2);
+           d3.json('http://localhost:3000/denormalisation1/query2_2', function (error,data2){            
+           document.getElementById('json12').innerHTML= JSON.stringify(data2, null, 4);
           }
           )            
         }
@@ -95,16 +95,21 @@
       </div>
 
       <div class="col-sm-5">
-        <h2>Dénorm1 query 3</h2>         
+        <h2>Dénorm1 query 3</h2>
+        <input name="searchTxt" type="text" maxlength="512" id="id_client" class="searchField"/>
+        <button id="q3_id">validé</button>          
         <div id="my-chart13" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
          <pre>
            <code id="json13">   
            </code>
          </pre>
            <script>
-           d3.json('http://localhost:3000/denormalisation1/query3', function (error,data3){
-             
-             document.getElementById('json13').innerHTML= JSON.stringify(data3);
+             document.getElementById("q3_id").addEventListener("click", function(){
+             id= document.getElementById('id_client').value;
+             d3.json('http://localhost:3000/denormalisation1/query3?id='+id, function (error,data3){            
+             document.getElementById('json13').innerHTML= JSON.stringify(data3, null, 4);
+             }
+             )
            }
            );        
          </script>
@@ -120,7 +125,7 @@
            <script>
            d3.json('http://localhost:3000/denormalisation1/query4', function (error,data4){
              
-             document.getElementById('json14').innerHTML= JSON.stringify(data4);
+             document.getElementById('json14').innerHTML= JSON.stringify(data4, null, 4);
            }
            );        
          </script>
@@ -136,29 +141,14 @@
            <script>
            d3.json('http://localhost:3000/denormalisation2/query1', function (error,data5){
              
-             document.getElementById('json21').innerHTML= JSON.stringify(data5);
+             document.getElementById('json21').innerHTML= JSON.stringify(data5, null, 4);
            }
            );        
          </script>
         </div>
       </div>
 
-      <div class="col-sm-5">
-        <h2>Dénorm2 query 2</h2>         
-        <div id="my-chart22" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
-         <pre>
-           <code id="json22">   
-           </code>
-         </pre>
-           <script>
-           d3.json('http://localhost:3000/denormalisation2/query2', function (error,data6){
-             
-             document.getElementById('json22').innerHTML= JSON.stringify(data6);
-           }
-           );        
-         </script>
-        </div>
-      </div>
+      
          
       <div class="col-sm-5">
         <h2>Dénorm2 query 3</h2>         
@@ -170,7 +160,7 @@
            <script>
            d3.json('http://localhost:3000/denormalisation2/query3', function (error,data7){
              
-             document.getElementById('json23').innerHTML= JSON.stringify(data7);
+             document.getElementById('json23').innerHTML= JSON.stringify(data7, null, 4);
            }
            );        
          </script>
@@ -188,7 +178,7 @@
            <script>
            d3.json('http://localhost:3000/denormalisation2/query4', function (error,data8){
              
-             document.getElementById('json24').innerHTML= JSON.stringify(data8);
+             document.getElementById('json24').innerHTML= JSON.stringify(data8, null, 4);
            }
            );        
          </script>

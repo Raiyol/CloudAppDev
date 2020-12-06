@@ -300,5 +300,4 @@ router.get('/administrateur',async function(req, res) {
   
 });
 
-
 module.exports = router;

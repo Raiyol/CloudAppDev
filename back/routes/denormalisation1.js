@@ -1,7 +1,10 @@
 //routes.js
 const express = require('express');
 const router = express.Router()
-const requetes_sol1 = require("../requetes/solution1");
+//const requetes_sol = require("../requetes/solution1");
+//const requetes_sol1 = requetes_sol.requetes
+
+const function_requetes = require("../requetes/solution1");
 
 async function get_array(name_collection,requete,db){
 
@@ -98,24 +101,32 @@ async function execute_mapReduce(db){
 //---------------------------------------------------------------------------------
 router.get('/query1/perf', async function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     avg = await get_array("Customers",requetes_sol1.r1,db)
     console.log(avg)
     res.send(JSON.stringify({"query1":avg}));
 });
 router.get('/query2/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("Customers",requetes_sol1.r2,db)
   console.log(avg)
   res.send(JSON.stringify({"query2":avg}));
 });
 router.get('/query3/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("Customers",requetes_sol1.r3,db)
   console.log(avg)
   res.send(JSON.stringify({"query3":avg}));
 });
 router.get('/query4/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("results",requetes_sol1.r4,db)
   map_reduce = await execute_mapReduce(db)
   avg = avg + map_reduce
@@ -124,24 +135,32 @@ router.get('/query4/perf', async function(req, res) {
 });
 router.get('/query5/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("Customers",requetes_sol1.r5,db)
   console.log(avg)
   res.send(JSON.stringify({"query5":avg}));
 });
 router.get('/query6/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("Customers",requetes_sol1.r6,db)
   console.log(avg)
   res.send(JSON.stringify({"query6":avg}));
 });
 router.get('/query7/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("Customers",requetes_sol1.r7,db)
   console.log(avg)
   res.send(JSON.stringify({"query7":avg}));
 });
 router.get('/query8/perf', async function(req, res) {
   const db = req.app.locals.db;
+  var change_query = {}
+  requetes_sol1 = function_requetes(change_query)
   avg = await get_array("results",requetes_sol1.r8,db)
   map_reduce = await execute_mapReduce(db)
   avg = avg + map_reduce
@@ -151,7 +170,10 @@ router.get('/query8/perf', async function(req, res) {
 
 //---------------------------------------------------------------------------------
 router.get('/query1', function(req, res) {
+
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('Customers').aggregate(requetes_sol1.r1).toArray()
       .then(results => {
       res.send(results)
@@ -160,22 +182,51 @@ router.get('/query1', function(req, res) {
 });
 router.get('/query2', function(req, res) {
     const db = req.app.locals.db;
+
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
+    console.log(requetes_sol1.r2)
     db.collection('Customers').aggregate(requetes_sol1.r2).toArray()
       .then(results => {
       res.send(results)
       })
     
 });
+router.get('/query2_2', function(req, res) {
+  const db = req.app.locals.db;
+
+  var change_query = {}
+  change_query['query2'] = "False"
+  requetes_sol1 = function_requetes(change_query)
+  console.log(requetes_sol1.r2)
+  db.collection('Customers').aggregate(requetes_sol1.r2).toArray()
+    .then(results => {
+    res.send(results)
+    })
+  
+});
 router.get('/query3', function(req, res) {
+    
     const db = req.app.locals.db;
+    id = req.query.id;
+    var change_query = {}
+    if (id){
+      console.log(id)
+      change_query['query3'] = Number(id)
+    }
+    requetes_sol1 = function_requetes(change_query)
+    console.log(requetes_sol1.r3)
     db.collection('Customers').aggregate(requetes_sol1.r3).toArray()
       .then(results => {
       res.send(results)
       })
     
 });
+
 router.get('/query4',async function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('results').aggregate(requetes_sol1.r4).toArray()
       .then(results => {
       res.send(results)
@@ -184,14 +235,29 @@ router.get('/query4',async function(req, res) {
 });
 router.get('/query5', function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('Customers').aggregate(requetes_sol1.r5).toArray()
       .then(results => {
       res.send(results)
       })
     
 });
+router.get('/query5_5', function(req, res) {
+  const db = req.app.locals.db;
+  var change_query = {}
+  change_query['query5'] = "False"
+  requetes_sol1 = function_requetes(change_query)
+  db.collection('Customers').aggregate(requetes_sol1.r5).toArray()
+    .then(results => {
+    res.send(results)
+    })
+  
+});
 router.get('/query6', function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('Customers').aggregate(requetes_sol1.r6).toArray()
       .then(results => {
       res.send(results)
@@ -200,6 +266,8 @@ router.get('/query6', function(req, res) {
 });
 router.get('/query7', function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('Customers').aggregate(requetes_sol1.r7).toArray()
       .then(results => {
       res.send(results)
@@ -208,6 +276,8 @@ router.get('/query7', function(req, res) {
 });
 router.get('/query8', function(req, res) {
     const db = req.app.locals.db;
+    var change_query = {}
+    requetes_sol1 = function_requetes(change_query)
     db.collection('results').aggregate(requetes_sol1.r8).toArray()
       .then(results => {
       res.send(results)
@@ -230,12 +300,18 @@ router.get('/mapreduce',async function(req, res) {
 router.get('/administrateur',async function(req, res) {
   const db = req.app.locals.db;
   try {
-
-    
     const result = await db.command({
       dbStats: 1,
     });
+    //const statistiques = JSON.parse(result)
     //console.log(result)
+    /*var stats = {}
+    for (shard in result.raw){
+      stats["shard"] = shard
+      //console.log(shard)
+      //console.log("-------------")
+    }
+    console.log(stats)*/
     res.send(JSON.stringify(result));
   } catch (error) {
     console.log(error)

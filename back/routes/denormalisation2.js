@@ -274,9 +274,13 @@ router.get('/query8', function(req, res) {
 router.get('/mapreduce',async function(req, res) {
   const db = req.app.locals.db2;
   try {
+<<<<<<< HEAD
     console.log("ca arrive")
+=======
+    res.send("on est en train")
+
+>>>>>>> 96aa0258b2dce98fda7313f26ce6d9f25c964937
     end = await execute_mapReduce(db);
-    console.log("end")
     console.log(end)
     res.send(end);
     //res.send(JSON.stringify({"map reduce executed in : ":end}));
@@ -290,12 +294,18 @@ router.get('/mapreduce',async function(req, res) {
 router.get('/administrateur',async function(req, res) {
   const db = req.app.locals.db;
   try {
-
-    
     const result = await db.command({
       dbStats: 1,
     });
+    //const statistiques = JSON.parse(result)
     //console.log(result)
+    /*var stats = {}
+    for (shard in result.raw){
+      stats["shard"] = shard
+      //console.log(shard)
+      //console.log("-------------")
+    }
+    console.log(stats)*/
     res.send(JSON.stringify(result));
   } catch (error) {
     console.log(error)

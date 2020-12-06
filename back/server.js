@@ -3,11 +3,14 @@ const app = express()
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
 require("dotenv/config")
+var bodyParser = require('body-parser')
+
 
 //Import routes
 const denormalisation1 = require("./routes/denormalisation1");
 const denormalisation2 = require("./routes/denormalisation2");
 
+app.use(bodyParser.json())
 app.use(cors());
 app.use('/denormalisation1',denormalisation1)
 app.use('/denormalisation2',denormalisation2)

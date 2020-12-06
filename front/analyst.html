@@ -67,6 +67,22 @@
       </div>
     </div>
     <div class="col-sm-10">
+      <h2>Dataviz query 7</h2>              
+       <div id="d1q7" style="height:215px;width:1000px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
+        <pre>
+          <code id="json17">   
+          </code>
+        </pre>
+          <script>
+          d3.json('http://localhost:3000/denormalisation1/query7', function (error,data){
+            //console.log(data);
+            document.getElementById('json17').innerHTML= JSON.stringify(data, null, 4);
+            //console.log(JSON.stringify(data, null, 4));
+          }
+          );        
+        </script>
+       </div>
+      </div>
 
     <div class="col-sm-10">
       <h2>Dataviz query 8</h2>         

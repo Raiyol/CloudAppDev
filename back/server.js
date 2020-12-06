@@ -15,7 +15,6 @@ app.use(cors());
 app.use('/denormalisation1',denormalisation1)
 app.use('/denormalisation2',denormalisation2)
 
-
 //routes
 app.get("/",(req,res) => {
   res.send('we are on home');

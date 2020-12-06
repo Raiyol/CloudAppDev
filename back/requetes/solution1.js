@@ -1,6 +1,4 @@
 function test_queries(change_query){
-  console.log('ici')
-  console.log(change_query)
   if (change_query["query2"] == null){
     change_query["query2"] = "True"
   }

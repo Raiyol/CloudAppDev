@@ -274,12 +274,9 @@ router.get('/query8', function(req, res) {
 router.get('/mapreduce',async function(req, res) {
   const db = req.app.locals.db2;
   try {
-<<<<<<< HEAD
     console.log("ca arrive")
-=======
-    res.send("on est en train")
+    // res.send("on est en train")
 
->>>>>>> 96aa0258b2dce98fda7313f26ce6d9f25c964937
     end = await execute_mapReduce(db);
     console.log(end)
     res.send(end);

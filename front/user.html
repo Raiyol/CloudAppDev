@@ -52,7 +52,7 @@
             <tr>
               <th>_id</th>
               <th>Occupation</th>
-              <th>nb of transaction</th>
+              <th>Transac Nb</th>
             </tr>
           </thead>
           <tbody  id="json11">
@@ -68,6 +68,31 @@
             document.getElementById('json11').innerHTML = str;
           }
           );        
+        </script>
+      </div>
+      <div class="col-sm-5">
+        <h2>Dénorm2 query 1</h2>     
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>_id</th>
+              <th>Occupation</th>
+              <th>Transac Nb</th>
+            </tr>
+          </thead>
+          <tbody  id="json21">
+
+          </tbody>
+        </table>
+        <script>
+        d3.json('http://localhost:3000/denormalisation2/query1', function (error,data5){
+            let str = "";
+            for(i = 0; i < data5.length; i++){
+              str += `<tr><td>${data5[i]._id}</td><td>${data5[i].OCCUPATION}</td><td>${data5[i].number_transactions}</td></tr>`;
+            }
+            document.getElementById('json21').innerHTML = str;
+          }
+        );
         </script>
       </div>
       <div class="col-sm-5">
@@ -101,6 +126,10 @@
       </div>
 
       <div class="col-sm-5">
+        <h2>Dénorm2 query 2</h2>  
+      </div>
+
+      <div class="col-sm-5">
         <h2>Dénorm1 query 3</h2>
         <input name="searchTxt" type="text" maxlength="512" id="id_client" class="searchField"/>
         <button id="q3_id">validé</button>          
@@ -121,43 +150,9 @@
          </script>
         </div>
       </div>
-      <div class="col-sm-5">
-        <h2>Dénorm1 query 4</h2>         
-        <div id="my-chart14" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
-         <pre>
-           <code id="json14">   
-           </code>
-         </pre>
-           <script>
-           d3.json('http://localhost:3000/denormalisation1/query4', function (error,data4){
-             
-             document.getElementById('json14').innerHTML= JSON.stringify(data4, null, 4);
-           }
-           );        
-         </script>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <h2>Dénorm2 query 1</h2>         
-        <div id="my-chart21" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
-         <pre>
-           <code id="json21">   
-           </code>
-         </pre>
-           <script>
-           d3.json('http://localhost:3000/denormalisation2/query1', function (error,data5){
-             
-             document.getElementById('json21').innerHTML= JSON.stringify(data5, null, 4);
-           }
-           );        
-         </script>
-        </div>
-      </div>
 
-      
-         
       <div class="col-sm-5">
-        <h2>Dénorm2 query 3</h2>         
+        <h2>Dénorm2 query 3</h2>
         <div id="my-chart23" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
          <pre>
            <code id="json23">   
@@ -173,22 +168,56 @@
         </div>
       </div>
 
+      <div class="col-sm-5">
+        <h2>Dénorm1 query 4</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Geo ID</th>
+              <th>Avg Age</th>
+              <th>Avg Inc</th>
+            </tr>
+          </thead>
+          <tbody  id="json14">
+
+          </tbody>
+        </table>
+          <script>
+          d3.json('http://localhost:3000/denormalisation1/query4', function (error,data4){
+            let str = "";
+            for(i = 0; i < data4.length; i++){
+              str += `<tr><td>${data4[i]._id}</td><td>${data4[i].average_age}</td><td>${data4[i].average_income}</td></tr>`;
+            }
+            document.getElementById('json14').innerHTML = str;
+          }
+          );        
+        </script>
+      </div>
       
       <div class="col-sm-5">
-        <h2>Dénorm2 query 4</h2>         
-        <div id="my-chart24" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
-         <pre>
-           <code id="json24">   
-           </code>
-         </pre>
-           <script>
-           d3.json('http://localhost:3000/denormalisation2/query4', function (error,data8){
-             
-             document.getElementById('json24').innerHTML= JSON.stringify(data8, null, 4);
-           }
-           );        
-         </script>
-        </div>
+        <h2>Dénorm2 query 4</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Geo ID</th>
+              <th>Avg Age</th>
+              <th>Avg Inc</th>
+            </tr>
+          </thead>
+          <tbody  id="json24">
+
+          </tbody>
+        </table>
+        <script>
+          d3.json('http://localhost:3000/denormalisation2/query4', function (error,data8){
+            let str = "";
+            for(i = 0; i < data8.length; i++){
+              str += `<tr><td>${data8[i]._id}</td><td>${data8[i].average_age}</td><td>${data8[i].average_income}</td></tr>`;
+            }
+            document.getElementById('json24').innerHTML = str;
+          }
+          );
+        </script>
       </div>
   </div>
 </div>

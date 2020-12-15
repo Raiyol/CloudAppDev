@@ -1,6 +1,7 @@
 function test_queries(change_query){
   if (change_query["query2"] == null){
     change_query["query2"] = "True"
+    
   }
   if (change_query["query3"] == null){
     change_query["query3"] = 0
@@ -8,6 +9,7 @@ function test_queries(change_query){
   if (change_query["query5"] == null){
     change_query["query5"] = "True"
   }
+
   requetes ={
     //1. L’occupation des 50 clients qui ont réalisés le plus de sales (client)
     r1 : [
@@ -22,7 +24,7 @@ function test_queries(change_query){
       {
           $group: {
           _id: null,
-          average_education_réponse_positives: { $avg: "$EDUCATIONNUM" },
+          average_education_réponse: { $avg: "$EDUCATIONNUM" },
           },
       },
       ],

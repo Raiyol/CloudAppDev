@@ -47,20 +47,28 @@
   <div class="row"> 
       <div class="col-sm-5">
         <h2>Dénorm1 query 1</h2>         
-       <div id="my-chart11" style="height:215px;width:300px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"> 
-        <pre>
-          <code id="json11">   
-          </code>
-        </pre>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>_id</th>
+              <th>Occupation</th>
+              <th>nb of transaction</th>
+            </tr>
+          </thead>
+          <tbody  id="json11">
+
+          </tbody>
+        </table>
           <script>
           d3.json('http://localhost:3000/denormalisation1/query1', function (error,data){
-            //console.log(data);
-            document.getElementById('json11').innerHTML= JSON.stringify(data, null, 4);
-            //console.log(JSON.stringify(data, null, 4));
+            let str = "";
+            for(i = 0; i < data.length; i++){
+              str += `<tr><td>${data[i]._id}</td><td>${data[i].OCCUPATION}</td><td>${data[i].number_transactions}</td></tr>`;
+            }
+            document.getElementById('json11').innerHTML = str;
           }
           );        
         </script>
-       </div>
       </div>
       <div class="col-sm-5">
         <h2>Dénorm1 query 2</h2>  

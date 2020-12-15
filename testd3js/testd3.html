@@ -10,6 +10,7 @@
     <h1>Test</h1>
     <div id="d1q4"></div>
     <div id="d1q8"></div>
+
     <div >
       <pre>
         <code id="json">
@@ -17,10 +18,12 @@
         </code>
       </pre>
     </div>
+
   </body>
 </html>
-<script type="text/javascript" src="d3.js"></script>
+<!-- <script type="text/javascript" src="d3.js"></script> -->
+<script type="text/javascript" src="perf.js"></script>
 
 <script>
-  document.getElementById('json').innerHTML= JSON.stringify({ foo: "sample", bar: "sample" }, null, 4);
+  document.getElementById('json').innerHTML= JSON.stringify([{ foo: "sample", bar: "sample" }, { foo: "sample", bar: "sample" }], null, 4);
 </script>

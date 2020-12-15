@@ -136,13 +136,18 @@ reduce = function (k, values) {
 
 
 async function execute_mapReduce(db){
-    var start = new Date()
+    let ret = { };
+    ret.mr1 = new Date();
     await db.collection('mailings').mapReduce(mapMailing, reduce2, {out: { reduce: "sales_in_mailings" },});
     await db.collection('sales').mapReduce(mapSales, reduce2, { out: { reduce: "sales_in_mailings" } });
-    //await db.collection('sales_in_mailings').mapReduce(mapMailing2, reduce, {out: { reduce: "results" },});
-    //await db.collection('demog').mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
-    var end = new Date() - start
-    return end
+    ret.mr1 = new Date() - ret.mr1;
+    console.log(ret);
+    ret.mr2 = new Date();
+    await db.collection('sales_in_mailings').mapReduce(mapMailing2, reduce, {out: { reduce: "results" },});
+    await db.collection('demog').mapReduce(mapDemog, reduce, { out: { reduce: "results" } });
+    ret.mr2 = new Date() - ret.mr2;
+    console.log(ret);
+    return ret;
 }
 
 //set response for each endpoints
@@ -168,9 +173,9 @@ res.send(JSON.stringify({"query3":avg}));
 router.get('/query4/perf', async function(req, res) {
 const db = req.app.locals.db2;
 avg = await get_array("results",requetes_sol2.r4,db)
-map_reduce = await execute_mapReduce(db)
-avg = avg + map_reduce
-console.log(avg)
+// map_reduce = await execute_mapReduce(db)
+// avg = avg + map_reduce
+// console.log(avg)
 res.send(JSON.stringify({"query4":avg}));
 });
 router.get('/query5/perf', async function(req, res) {
@@ -195,8 +200,8 @@ router.get('/query8/perf', async function(req, res) {
 const db = req.app.locals.db2;
 avg = await get_array("results",requetes_sol2.r8,db)
 console.log(avg)
-map_reduce = await execute_mapReduce(db)
-avg = avg + map_reduce
+// map_reduce = await execute_mapReduce(db)
+// avg = avg + map_reduce
 res.send(JSON.stringify({"query8":avg}));
 });
 
@@ -269,10 +274,12 @@ router.get('/query8', function(req, res) {
 router.get('/mapreduce',async function(req, res) {
   const db = req.app.locals.db2;
   try {
-    res.send("on est en train")
+    console.log("ca arrive")
+    // res.send("on est en train")
 
     end = await execute_mapReduce(db);
     console.log(end)
+    res.send(end);
     //res.send(JSON.stringify({"map reduce executed in : ":end}));
   } catch (error) {
     console.log(error)

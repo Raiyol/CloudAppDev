@@ -1,15 +1,15 @@
 
 
-// set the dimensions and margins of the graph
+// set the dimensions and marg2ins of the graph
 var width = 450
     height = 450
-    margin = 40
+    margin = 0
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = Math.min(width, height) / 2 - margin
 
-// append the svg object to the div called 'd1q5'
-var svg = d3.select("#d1q5")
+// append the svg object to the div called 'd1q52'
+var svg = d3.select("#d1q52")
   .append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -28,7 +28,7 @@ async function FetchJSON(url) {
         return json_resp;
     }
 }
-async function pie(url) {
+async function pie52(url) {
     var data_json = await FetchJSON(url);
     //console.log(data);
     var data = {Female:data_json[0].sum,Male:data_json[1].sum};
@@ -76,4 +76,4 @@ async function pie(url) {
 // set the color scale
 
 
-  pie=pie('http://localhost:3000/denormalisation1/query5_2/');
+  pie52('http://localhost:3000/denormalisation1/query5_5/');

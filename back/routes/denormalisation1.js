@@ -243,7 +243,7 @@ router.get('/query5', function(req, res) {
       })
     
 });
-router.get('/query5_5', function(req, res) {
+router.get('/query5_2', function(req, res) {
   const db = req.app.locals.db;
   var change_query = {}
   change_query['query5'] = "False"

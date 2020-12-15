@@ -28,7 +28,7 @@ async function FetchJSON(url) {
         return json_resp;
     }
 }
-async function pie(url) {
+async function pie51(url) {
     var data_json = await FetchJSON(url);
     //console.log(data);
     var data = {Female:data_json[0].sum,Male:data_json[1].sum};
@@ -76,4 +76,4 @@ async function pie(url) {
 // set the color scale
 
 
-  pie=pie('http://localhost:3000/denormalisation1/query5/');
+ pie51('http://localhost:3000/denormalisation1/query5/');

@@ -9,12 +9,6 @@ var width = 450
 var radius = Math.min(width, height) / 2 - margin
 
 // append the svg object to the div called 'd1q5'
-var svg = d3.select("#d1q5")
-  .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // Create dummy data
 async function FetchJSON(url) {
@@ -28,7 +22,14 @@ async function FetchJSON(url) {
         return json_resp;
     }
 }
-async function pie51(url) {
+async function pie51(url,html_id) {
+    var svg = d3.select(`#${html_id}`)
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
     var data_json = await FetchJSON(url);
     //console.log(data);
     var data = {Female:data_json[0].sum,Male:data_json[1].sum};
@@ -76,4 +77,4 @@ async function pie51(url) {
 // set the color scale
 
 
- pie51('http://localhost:3000/denormalisation1/query5/');
+ pie51('http://localhost:3000/denormalisation1/query5/','d1q5');

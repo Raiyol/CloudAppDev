@@ -8,14 +8,6 @@ var width = 450
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = Math.min(width, height) / 2 - margin
 
-// append the svg object to the div called 'd1q52'
-var svg = d3.select("#d1q52")
-  .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
 // Create dummy data
 async function FetchJSON(url) {
     const response = await fetch(url);
@@ -28,7 +20,14 @@ async function FetchJSON(url) {
         return json_resp;
     }
 }
-async function pie52(url) {
+async function pie52(url,html_id) {
+    // append the svg object to the div called 'd1q52'
+    var svg = d3.select(`#${html_id}`)
+    .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+    .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     var data_json = await FetchJSON(url);
     //console.log(data);
     var data = {Female:data_json[0].sum,Male:data_json[1].sum};
@@ -49,7 +48,7 @@ async function pie52(url) {
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     svg
-    .selectAll('mySlices')
+    .selectAll('myslices2')
     .data(data_ready)
     .enter()
    .append('path')
@@ -61,7 +60,7 @@ async function pie52(url) {
 
 // Now add the annotation. Use the centroid method to get the best coordinates
     svg
-   .selectAll('mySlices')
+   .selectAll('myslices2')
    .data(data_ready)
    .enter()
    .append('text')
@@ -76,4 +75,4 @@ async function pie52(url) {
 // set the color scale
 
 
-  pie52('http://localhost:3000/denormalisation1/query5_5/');
+  pie52('http://localhost:3000/denormalisation1/query5_2/','d1q52');
